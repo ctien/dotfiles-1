@@ -19,6 +19,30 @@ Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 
+" Remove newbie crutches in Command Mode
+cnoremap <Down> <Nop>
+cnoremap <Left> <Nop>
+cnoremap <Right> <Nop>
+cnoremap <Up> <Nop>
+
+" Remove newbie crutches in Insert Mode
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+
+" Remove newbie crutches in Normal Mode
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+
+" Remove newbie crutches in Visual Mode
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
+
 set clipboard=unnamedplus
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -90,7 +114,7 @@ let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F10>'
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
-hi Floaterm guibg=black
+" hi Floaterm guibg=
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
