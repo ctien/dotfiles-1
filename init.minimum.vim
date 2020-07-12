@@ -13,35 +13,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-rhubarb'
-Plug 'tomasr/molokai'
-" Plug 'ayu-theme/ayu-vim'
 Plug 'voldikss/vim-floaterm'
+Plug 'eugen0329/vim-esearch'
+Plug 'tomasr/molokai'
+Plug 't9md/vim-choosewin'
+Plug 'HendrikPetertje/vimify'
 
 call plug#end()
-
-" Remove newbie crutches in Command Mode
-cnoremap <Down> <Nop>
-cnoremap <Left> <Nop>
-cnoremap <Right> <Nop>
-cnoremap <Up> <Nop>
-
-" Remove newbie crutches in Insert Mode
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
-
-" Remove newbie crutches in Normal Mode
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
-
-" Remove newbie crutches in Visual Mode
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-vnoremap <Up> <Nop>
 
 set clipboard=unnamedplus
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -51,6 +29,8 @@ set ruler
 set relativenumber
 set number
 
+"" vimify
+let g:spotify_token='base 64 client_id:secret_key'
 "" Lightline
 set tabline=%!lightline#tabline()
 set laststatus=2
@@ -68,13 +48,17 @@ let g:lightline = {
 
 "" Color
 set termguicolors
+set background=dark
+colorscheme molokai
+" colorscheme molokai
 let no_buffers_menu=1
-" let ayucolor="dark"
-silent! colorscheme molokai
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 set gfn=Monospace\ 10
+
+"" esearch
+hi ESearchMatch ctermfg=black ctermbg=white guifg=#000000 guibg=yellow
 
 
 "" Map leader to ,
@@ -98,20 +82,34 @@ noremap <Leader>gll :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
+noremap <Leader>gr :Gremove<CR>"
+
+" vim choosewin
+nmap <Space><Space> <Plug>(choosewin)
 
 "" MyCustom
-" noremap <Leader>ter :call OpenFloatTerm()<Enter>
-noremap <Leader>ff :Rgrep<CR>
-noremap <Leader>rp :%s///g<Left><Left><Left>
-noremap <Leader>f<Enter> :FZF<Enter>
-noremap qq :qa!<Enter>
 
+" noremap <Leader>ff :Rgrep<CR>
+set autoread
+set autowrite
+au CursorHold,CursorHoldI * checktime
+noremap <Leader><CR> :nohl<CR>
+noremap <Leader>w :w<CR>
+noremap <Leader>rp :%s///g<Left><Left><Left>
+noremap qq :qa!<CR>
+noremap <C-s> <C-u>
+noremap <F4> <ESC>:tabnext<CR>
+noremap <F5> <ESC>:tabnew<CR>
+imap <F4> <ESC>:tabnext<CR>
+imap <F5> <ESC>:tabnew<CR>
+vmap <F4> <ESC>:tabnext<CR>
+vmap <F5> <ESC>:tabnew<CR>
+noremap <Leader>sps :SpSearch<Space>
 """ Floatterm 
 let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
-let g:floaterm_keymap_toggle = '<F10>'
+let g:floaterm_keymap_toggle = '0'
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 " hi Floaterm guibg=
@@ -167,6 +165,7 @@ set hidden
 set cmdheight=2
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
+set ttimeoutlen=50
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 " always show signcolumns
@@ -208,6 +207,7 @@ nnoremap <silent> U :call <SID>show_documentation()<CR>
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
